@@ -1,3 +1,7 @@
 This REPO is a work in progress.
 
 It's intended use is for generating statistics/simulations relevant to the game ffbe
+
+Add the python directory to PYTHONPATH.
+
+python code is version 3+

@@ -29,6 +29,37 @@ class LimitBreakerStats(Stats) :
         Stats.__init__(self, stats=stats, stype='LimitBreaker')
         self.limits = limits
 
+class Elements :
+    ELEMENTS = ['Fire', 'Ice', 'Earth', 'Lightning',
+               'Wind', 'Dark', 'Holy', 'Water']
+    def __init__(self, elements=None) :
+        if elements is None :
+            self.elements = []
+        else :
+            self.elements = elements
+
+    def print(self) :
+        if len(self.elements) > 0 :
+            ele_print = ''
+            for ele in self.elements :
+                ele_print += ele + ' '
+            print('Elements: ' + ele_print)
+
 class Resistance :
-    def __init__(self, res=dict()) :
-        self.res = res
+    def __init__(self, resistance=None) :
+        self.resistance = dict()
+        self.attr_list = Elements.ELEMENTS
+        if resistance is None :
+            for attr in self.attr_list :
+                self.resistance.update({attr:0})
+        else :
+            self.resistance = resistance
+
+    def update(self, attr, value) :
+        if attr not in self.resistance :
+            raise ValueError('Attempting to update nonexistent key')
+        self.resistance[attr] = value
+
+    def print(self) :
+        for k, v in self.resistance.items() :
+            print(k + ': ' + str(v))

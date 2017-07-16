@@ -1,17 +1,10 @@
-import json
-import operator
+import sys
+from ingest.Ingestors import load_equipment
 
-f = open('../../data/equipment.json', 'r')
+def main() :
+    #infile = sys.argv[1]
+    infile = '/home/chrism/ffbe/data/equipment.json'
+    load_equipment(infile)
 
-data = json.load(f)
-f.close()
-
-atk_dict = dict()
-mag_dict = dict()
-for k, v in data.items() :
-    atk_dict.update({v['name']:v['stats']['ATK']})
-    mag_dict.update({v['name']:v['stats']['MAG']})
-
-tmp = sorted(atk_dict.items(), key=operator.itemgetter(1))
-for x in tmp :
-    print('Item: ' + x[0] + ', ATK: ' + str(x[1]))
+if __name__ == '__main__' :
+    main()
