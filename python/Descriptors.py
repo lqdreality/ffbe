@@ -8,10 +8,17 @@ class Stats :
                 self.stats.update({attr:0})
         else :
             self.stats = stats
+
+    def get_stat(self, stat) :
+        if stat not in self.attr_list :
+            raise ValueError('Cannot get ' + stat + '. Not in list')
+        return self.stats[stat]
+
     def update(self, attr, value) :
         if attr not in self.stats :
             raise ValueError('Attempting to update nonexistent key')
         self.stats[attr] = value
+
     def print(self) :
         for k, v in self.stats.items() :
             print(k + ': ' + str(v))

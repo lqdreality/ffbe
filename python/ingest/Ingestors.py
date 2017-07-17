@@ -39,24 +39,32 @@ def load_equipment(infile, pckl=None) :
                                   element=Elements(elements=element),
                                   resistance=Resistance(resistance=resistance), 
                                   ae=ae)
+        elif slot == 'Shield' :
+            equipment = Shield(name=name, etype=etype,
+                               stats=EquipmentStats(stats=stats),
+                               element=Elements(elements=element),
+                               resistance=Resistance(resistance=resistance),
+                               ae=ae)
         elif slot == 'Weapon' :
             is_2h = e['is_twohanded']
-            equipment = HandWeapon(name=name, etype=etype,
-                                  stats=EquipmentStats(stats=stats),
-                                  element=Elements(elements=element),
-                                  resistance=Resistance(resistance=resistance),
-                                  ae=ae,
-                                  is_2h=is_2h)
+            equipment = Weapon(name=name, etype=etype,
+                               stats=EquipmentStats(stats=stats),
+                               element=Elements(elements=element),
+                               resistance=Resistance(resistance=resistance),
+                               ae=ae,
+                               is_2h=is_2h)
         else :
             print(slot + ' NYI')
 
         if equipment is not None :
-            equipment.print()
+            #equipment.print()
             equipment_list.append(equipment)
-        sleep(3)
+        #sleep(3)
 
     if pckl is not None :
         print('Pickling up the list')
+
+    return equipment_list
 
 
 """atk_dict = dict()

@@ -35,7 +35,24 @@ class Character :
                     self.equipment['Acc1'] = equipment
                 else :
                     self.equipment['Acc2'] = equipment
-        elif slot == 'HandWeapon' :
+        elif slot == 'Shield' :
+            if self.equipment['Lhand'] is None :
+                if self.equipment['Rhand'] is not None and 
+                   self.equipment['Rhand'].slot == 'Shield' :
+                    self.equipment['Rhand'] = equipment
+                else :
+                    self.equipment['Lhand'] = equipment
+            elif self.equipment['Rhand'] is None :
+                if self.equipment['Lhand'].slot == 'Shield' :
+                    self.equipment['Lhand'] = equipment
+                else :
+                    self.equipment['Rhand'] = equipment
+            else :
+                if slot == 1 :
+                    self.equipment['Rhand'] = equipment
+                else :
+                    self.equipment['Lhand'] = equipment
+        elif slot == 'Weapon' :
             if equipment.is_2h :
                 self.equipment['Rhand'] = equipment
                 self.unequip('Lhand')
