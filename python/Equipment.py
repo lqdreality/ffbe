@@ -23,9 +23,15 @@ class Equipment :
     def print(self) :
         print('Name: ' + self.name)
         print('Type: ' + self.etype)
-        self.stats.print()
         self.element.print()
+        print('Stats:')
+        print('--------------------------------------------------')
+        self.stats.print()
+        print('--------------------------------------------------')
+        print('Resistances:')
+        print('---------------------------------------------------------------')
         self.resistance.print()
+        print('---------------------------------------------------------------')
         #print('Additional Notes: ' + self.ae)
 
 class Chest(Equipment) :

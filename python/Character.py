@@ -2,18 +2,34 @@ from Descriptors import *
 from Equipment import *
 
 class Character :
-    def __init__(self, name='None', stats=BasicStats(), equipment=None) :
+    def __init__(self, name='None', 
+                 level=0,
+                 star=6,
+                 max_star=6,
+                 base_stats=BasicStats(), 
+                 equipment=None,
+                 allowable_equip=[]) :
         self.name = name
-        self.stats = stats
+        self.level = level
+        self.star = star
+        self.max_star = star
+        self.base_stats = base_stats
         if equipment is None :
             self.equipment = {'Lhand': None, 'Rhand': None, 
                               'Chest': None, 'Headgear': None, 
                               'Acc1': None, 'Acc2': None}
         else :
             self.equipment = equipment
-        self.allowable_equip = ['Dagger']
+        self.allowable_equip = allowable_equip
         self.spells = 'None'
         self.traits = 'None'
+
+    def get_stats(self, stat=None) :
+        if stat is None :
+            return self.get_combined_stats()
+
+    def get_combined_stats(self) :
+        pass
 
     def equip(self, equipment, slot_num=1) :
         # First check if the equipment is allowed

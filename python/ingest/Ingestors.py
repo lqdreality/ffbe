@@ -16,6 +16,8 @@ def load_equipment(infile, pckl=None) :
         stats = e['stats']
         element = stats.pop('element_inflict')
         resistance = stats.pop('element_resist')
+        if resistance is None :
+            resistance = dict()
         ae = stats.pop('status_inflict')
         stats.pop('status_resist')
         etype = e['type']

@@ -10,7 +10,8 @@ def main() :
                    etypes=['Dagger'], 
                    stats=['ATK'], 
                    operators=[operator.ge], 
-                   comp_vals=[20])
+                   comp_vals=[100],
+                   search_all=True)
 
 if __name__ == '__main__' :
     main()
