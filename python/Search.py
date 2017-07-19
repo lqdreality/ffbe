@@ -4,7 +4,7 @@ def find_equipment(elist, name=None, etypes=[], stats=[], operators=[],
                    comp_vals=[], search_all=False, verbose=False) :
     n_found = 0
     found_equip = []
-    for equipment in elist :
+    for iden, equipment in elist.items() :
         if name is not None :
             if name.lower() == equipment.name.lower() :
                 found = True
@@ -41,3 +41,6 @@ def find_equipment(elist, name=None, etypes=[], stats=[], operators=[],
         print('\n')
         print('Found a total of ' + str(n_found) + ' matches')
     return found_equip
+
+def find_skills() :
+    pass

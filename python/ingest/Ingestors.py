@@ -2,17 +2,19 @@ import json
 from time import sleep
 from Descriptors import *
 from Equipment import *
+from Skills import *
 
-def load_equipment(infile, pckl=None) :
+def load_equipment(infile, pckl=None, verbose=False) :
     f = open(infile, 'r')
     data = json.load(f)
     f.close()
 
-    equipment_list = []
+    equipment_dict = dict()
 
     for iden, e in data.items() :
         name = e['name']
-        print('Loading ' + e['name'])
+        if verbose :
+            print('Loading ' + e['name'])
         stats = e['stats']
         element = stats.pop('element_inflict')
         resistance = stats.pop('element_resist')
@@ -55,27 +57,33 @@ def load_equipment(infile, pckl=None) :
                                resistance=Resistance(resistance=resistance),
                                ae=ae,
                                is_2h=is_2h)
-        else :
+        elif verbose :
             print(slot + ' NYI')
 
         if equipment is not None :
-            #equipment.print()
-            equipment_list.append(equipment)
-        #sleep(3)
+            if verbose :
+                equipment.print()
+            equipment_dict.update({iden:equipment})
 
     if pckl is not None :
         print('Pickling up the list')
 
-    return equipment_list
+    return equipment_dict
 
+def load_skills(infile, pckl=None, verbose=False) :
+    f = open(infile, 'r')
+    data = json.load(f)
+    f.close()
 
-"""atk_dict = dict()
-mag_dict = dict()
-for k, v in data.items() :
-    atk_dict.update({v['name']:v['stats']['ATK']})
-    mag_dict.update({v['name']:v['stats']['MAG']})
+    skill_dict = dict()
 
-tmp = sorted(atk_dict.items(), key=operator.itemgetter(1))
-for x in tmp :
-    print('Item: ' + x[0] + ', ATK: ' + str(x[1]))
-"""
+    for iden, s in data.items() :
+        skill = None
+        name = s['name']
+        stype = s['type']
+        active = s['active']
+        skill = Skills(name=name, stype=stype, active=active)
+        if skill is not None :
+            if verbose :
+                skill.print()
+            skill_dict.update({iden:skill})
