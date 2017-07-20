@@ -1,3 +1,21 @@
+class DictObj :
+    def __init__(self, data, attr_list) :
+        if not isinstance(data, dict) :
+            data = dict()
+        self.data = data.copy()
+        self.attr_list = attr_list
+        for attr in self.attr_list :
+            if attr not in data :
+                self.data.update({attr:0})
+        for k in data.keys() :
+            if k not in self.attr_list :
+                self.data.pop(k)
+
+    def update(self, attr, value) :
+        if attr not in self.data :
+            raise ValueError('Attempting to Update Nonexisting key ' + attr)
+        self.data.update({attr:value})
+
 class Stats :
     def __init__(self, stats=None, stype='') :
         self.stype = stype
@@ -47,47 +65,56 @@ class LimitBreakerStats(Stats) :
         Stats.__init__(self, stats=stats, stype='LimitBreaker')
         self.limits = limits
 
-class Elements :
-    ELEMENTS = ['Fire', 'Ice', 'Earth', 'Lightning',
-               'Wind', 'Dark', 'Holy', 'Water']
-    def __init__(self, elements=None) :
-        if elements is None :
-            self.elements = []
-        else :
-            self.elements = elements
+class Elements(DictObj) :
+    def __init__(self, elements=dict()) :
+        attr_list = ['Fire', 'Ice', 'Earth', 'Lightning',
+                     'Wind', 'Dark', 'Holy', 'Water', 'Light']
+        DictObj.__init__(self, elements, attr_list)
+        if isinstance(elements, str) :
+            self.update(elements, 1)
+        elif isinstance(elements, list) :
+            for e in elements :
+                self.update(e, 1)
+            
+    def print(self) :
+        out_str = '| '
+        for k,v in self.data.items() :
+            if v != 0 :
+                out_str += k + ' | '
+        if len(out_str) > 2 :
+            print('Element(s): ' + out_str)
+
+class Status(DictObj) :
+    def __init__(self, status=dict()) :
+        attr_list = ['Poison', 'Sleep', 'Blind', 'Silence', 'Paralyze',
+                     'Confuse', 'Disease', 'Petrify']
+        DictObj.__init__(self, status, attr_list)
 
     def print(self) :
-        if len(self.elements) > 0 :
-            ele_print = ''
-            for ele in self.elements :
-                ele_print += ele + ' '
-            print('Elements: ' + ele_print)
+        print('| Poison | Sleep | Blind | Silence | Paralyze | Confuse | Disease'
+              ' | Petrify |')
+        print('|     ' + '{0:02d}'.format(self.data['Poison']) + ' |    ' +
+              '{0:02d}'.format(self.data['Sleep']) + ' |    ' +
+              '{0:02d}'.format(self.data['Blind']) + ' |      ' +
+              '{0:02d}'.format(self.data['Silence']) + ' |       ' +
+              '{0:02d}'.format(self.data['Paralyze']) + ' |      ' +
+              '{0:02d}'.format(self.data['Confuse']) + ' |      ' +
+              '{0:02d}'.format(self.data['Disease']) + ' |      ' +
+              '{0:02d}'.format(self.data['Petrify']) + ' |')
 
-class Resistance :
+class Resistance(DictObj) :
     def __init__(self, resistance=dict()) :
-        self.resistance = resistance.copy()
-        self.attr_list = Elements.ELEMENTS
-        for attr in self.attr_list :
-            if attr not in resistance :
-                self.resistance.update({attr:0})
-        for k in resistance.keys() :
-            if k not in self.attr_list :
-                self.resistance.pop(k)
-
-    def update(self, attr, value) :
-        if attr not in self.resistance :
-            raise ValueError('Attempting to update nonexistent key')
-        self.resistance[attr] = value
+        attr_list = ['Fire', 'Ice', 'Earth', 'Lightning',
+                     'Wind', 'Dark', 'Holy', 'Water']
+        DictObj.__init__(self, resistance, attr_list)
 
     def print(self) :
         print('| Fire | Ice | Earth | Lightning | Water | Wind | Holy | Dark |')
-        print('|   ' + '{0:02d}'.format(self.resistance['Fire']) + ' |  ' +
-              '{0:02d}'.format(self.resistance['Ice']) + ' |    ' +
-              '{0:02d}'.format(self.resistance['Earth']) + ' |        ' +
-              '{0:02d}'.format(self.resistance['Lightning']) + ' |    ' +
-              '{0:02d}'.format(self.resistance['Water']) + ' |   ' +
-              '{0:02d}'.format(self.resistance['Wind']) + ' |   ' +
-              '{0:02d}'.format(self.resistance['Holy']) + ' |   ' + 
-              '{0:02d}'.format(self.resistance['Dark']) + ' |')
-        #for k, v in self.resistance.items() :
-        #    print(k + ': ' + str(v))
+        print('|   ' + '{0:02d}'.format(self.data['Fire']) + ' |  ' +
+              '{0:02d}'.format(self.data['Ice']) + ' |    ' +
+              '{0:02d}'.format(self.data['Earth']) + ' |        ' +
+              '{0:02d}'.format(self.data['Lightning']) + ' |    ' +
+              '{0:02d}'.format(self.data['Water']) + ' |   ' +
+              '{0:02d}'.format(self.data['Wind']) + ' |   ' +
+              '{0:02d}'.format(self.data['Holy']) + ' |   ' + 
+              '{0:02d}'.format(self.data['Dark']) + ' |')

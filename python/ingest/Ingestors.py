@@ -9,6 +9,8 @@ def load_equipment(infile, pckl=None, verbose=False) :
     data = json.load(f)
     f.close()
 
+    ae = ''
+
     equipment_dict = dict()
 
     for iden, e in data.items() :
@@ -18,9 +20,7 @@ def load_equipment(infile, pckl=None, verbose=False) :
         stats = e['stats']
         element = stats.pop('element_inflict')
         resistance = stats.pop('element_resist')
-        if resistance is None :
-            resistance = dict()
-        ae = stats.pop('status_inflict')
+        status_inflict = stats.pop('status_inflict')
         stats.pop('status_resist')
         etype = e['type']
         slot = e['slot']
@@ -29,24 +29,28 @@ def load_equipment(infile, pckl=None, verbose=False) :
             equipment = Headgear(name=name, etype=etype, 
                                  stats=EquipmentStats(stats=stats),
                                  element=Elements(elements=element),
+                                 status_inflict=Status(status=status_inflict),
                                  resistance=Resistance(resistance=resistance), 
                                  ae=ae)
         elif slot == 'Chest' :
             equipment = Chest(name=name, etype=etype, 
                               stats=EquipmentStats(stats=stats),
                               element=Elements(elements=element), 
+                              status_inflict=Status(status=status_inflict),
                               resistance=Resistance(resistance=resistance), 
                               ae=ae)
         elif slot == 'Accessory' :
             equipment = Accessory(name=name, etype=etype,
                                   stats=EquipmentStats(stats=stats),
                                   element=Elements(elements=element),
+                                  status_inflict=Status(status=status_inflict),
                                   resistance=Resistance(resistance=resistance), 
                                   ae=ae)
         elif slot == 'Shield' :
             equipment = Shield(name=name, etype=etype,
                                stats=EquipmentStats(stats=stats),
                                element=Elements(elements=element),
+                               status_inflict=Status(status=status_inflict),
                                resistance=Resistance(resistance=resistance),
                                ae=ae)
         elif slot == 'Weapon' :
@@ -54,6 +58,7 @@ def load_equipment(infile, pckl=None, verbose=False) :
             equipment = Weapon(name=name, etype=etype,
                                stats=EquipmentStats(stats=stats),
                                element=Elements(elements=element),
+                               status_inflict=Status(status=status_inflict),
                                resistance=Resistance(resistance=resistance),
                                ae=ae,
                                is_2h=is_2h)

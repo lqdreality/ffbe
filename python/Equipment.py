@@ -6,7 +6,8 @@ class Equipment :
                  slot=None, 
                  etype=None, 
                  stats=EquipmentStats(),
-                 element=Elements(), 
+                 element=Elements(),
+                 status_inflict=Status(),
                  resistance=Resistance(), 
                  ae='None') :
         self.name = name
@@ -14,6 +15,7 @@ class Equipment :
         self.etype = etype # Sword, dagger, etc
         self.stats = stats
         self.element = element
+        self.status_inflict = status_inflict
         self.resistance = resistance
         self.skills = None
         self.ae = ae
@@ -33,13 +35,19 @@ class Equipment :
         print('---------------------------------------------------------------')
         self.resistance.print()
         print('---------------------------------------------------------------')
-        #print('Additional Notes: ' + self.ae)
+        print('Status Inflict:')
+        print('----------------------------------------------------------------'
+              '-------------')
+        self.status_inflict.print()
+        print('----------------------------------------------------------------'
+              '-------------')
 
 class Chest(Equipment) :
     def __init__(self, name=None, 
                  etype=None, 
                  stats=EquipmentStats(), 
-                 element=Elements(), 
+                 element=Elements(),
+                 status_inflict=Status(),
                  resistance=Resistance(), 
                  ae='None') :
         Equipment.__init__(self, name=name, 
@@ -47,6 +55,7 @@ class Chest(Equipment) :
                            etype=etype,  
                            stats=stats, 
                            element=element, 
+                           status_inflict=status_inflict,
                            resistance=resistance, 
                            ae=ae)
 
@@ -54,7 +63,8 @@ class Headgear(Equipment) :
     def __init__(self, name=None, 
                  etype=None, 
                  stats=EquipmentStats(), 
-                 element=Elements(), 
+                 element=Elements(),
+                 status_inflict=Status(),
                  resistance=Resistance(), 
                  ae='None') :
         Equipment.__init__(self, name=name, 
@@ -62,6 +72,7 @@ class Headgear(Equipment) :
                            etype=etype, 
                            stats=stats, 
                            element=element, 
+                           status_inflict=status_inflict,
                            resistance=resistance, 
                            ae=ae)
 
@@ -70,6 +81,7 @@ class Weapon(Equipment) :
                  etype=None, 
                  stats=EquipmentStats(), 
                  element=Elements(), 
+                 status_inflict=Status(),
                  resistance=Resistance(), 
                  ae='None', 
                  is_2h=False) :
@@ -78,6 +90,7 @@ class Weapon(Equipment) :
                            etype=etype, 
                            stats=stats, 
                            element=element,
+                           status_inflict=status_inflict,
                            resistance=resistance, 
                            ae=ae)
         self.is_2h = is_2h
@@ -91,6 +104,7 @@ class Accessory(Equipment) :
                  etype=None, 
                  stats=EquipmentStats(), 
                  element=Elements(),
+                 status_inflict=Status(),
                  resistance=Resistance(), 
                  ae='None') :
         Equipment.__init__(self, name=name, 
@@ -98,6 +112,7 @@ class Accessory(Equipment) :
                            etype=etype, 
                            stats=stats, 
                            element=element, 
+                           status_inflict=status_inflict,
                            resistance=resistance, 
                            ae=ae)
 
@@ -106,6 +121,7 @@ class Shield(Equipment) :
                  etype=None,
                  stats=EquipmentStats(),
                  element=Elements(),
+                 status_inflict=Status(),
                  resistance=Resistance(),
                  ae='None') :
         Equipment.__init__(self, name=name,
@@ -113,5 +129,6 @@ class Shield(Equipment) :
                            etype=etype,
                            stats=stats,
                            element=element,
+                           status_inflict=status_inflict,
                            resistance=resistance,
                            ae=ae)
