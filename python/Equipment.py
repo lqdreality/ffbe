@@ -15,6 +15,7 @@ class Equipment :
         self.stats = stats
         self.element = element
         self.resistance = resistance
+        self.skills = None
         self.ae = ae
 
     def get_stat(self, stat) :
