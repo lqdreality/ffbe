@@ -11,45 +11,38 @@ class DictObj :
             if k not in self.attr_list :
                 self.data.pop(k)
 
+    def get_data(self, key) :
+        if key not in self.attr_list :
+            raise ValueError('Cannot get ' + key + '. Not in Attribute list')
+        return self.data[key]
+
     def update(self, attr, value) :
         if attr not in self.data :
             raise ValueError('Attempting to Update Nonexisting key ' + attr)
         self.data.update({attr:value})
 
-class Stats :
-    def __init__(self, stats=None, stype='') :
+class Stats(DictObj) :
+    def __init__(self, stats=dict(), stype='') :
         self.stype = stype
-        self.stats = dict()
-        self.attr_list = ['HP', 'MP', 'ATK', 'MAG', 'DEF', 'SPR']
-        if stats is None :
-            for attr in self.attr_list :
-                self.stats.update({attr:0})
-        else :
-            self.stats = stats
+        attr_list = ['HP', 'MP', 'ATK', 'MAG', 'DEF', 'SPR']
+        DictObj.__init__(self, stats, attr_list)
 
     def get_stat(self, stat) :
-        if stat not in self.attr_list :
-            raise ValueError('Cannot get ' + stat + '. Not in list')
-        return self.stats[stat]
-
-    def update(self, attr, value) :
-        if attr not in self.stats :
-            raise ValueError('Attempting to update nonexistent key')
-        self.stats[attr] = value
+        return self.get_data(stat)
 
     def print(self) :
         print('|   HP   |   MP  |  ATK  |  MAG  |  DEF  |  SPR  |')
-        print('|  ' + '{0:04d}'.format(self.stats['HP']) + '  |  ' + 
-              '{0:03d}'.format(self.stats['MP']) + '  |  ' + 
-              '{0:03d}'.format(self.stats['ATK']) + '  |  ' +
-              '{0:03d}'.format(self.stats['MAG']) + '  |  ' +
-              '{0:03d}'.format(self.stats['DEF']) + '  |  ' +
-              '{0:03d}'.format(self.stats['SPR']) + '  |')
+        print('|  ' + '{0:04d}'.format(self.data['HP']) + '  |  ' + 
+              '{0:03d}'.format(self.data['MP']) + '  |  ' + 
+              '{0:03d}'.format(self.data['ATK']) + '  |  ' +
+              '{0:03d}'.format(self.data['MAG']) + '  |  ' +
+              '{0:03d}'.format(self.data['DEF']) + '  |  ' +
+              '{0:03d}'.format(self.data['SPR']) + '  |')
 
     def __add__(self, other) :
-        stats = self.stats.copy()
+        stats = self.data.copy()
         for attr in self.attr_list :
-            stats[attr] += other.stats[attr]
+            stats[attr] += other.data[attr]
         return Stats(stats=stats)
 
 class BasicStats(Stats) :
