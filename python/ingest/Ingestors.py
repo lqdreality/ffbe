@@ -4,12 +4,32 @@ from Descriptors import *
 from Equipment import *
 from Skills import *
 
-def load_equipment(infile, pckl=None, verbose=False) :
+def write_tmr_equipment_file(infile, outfile) :
+    f = open(infile, 'r')
+    data = json.load(f)
+    f.close()
+
+    f = open(outfile, 'w')
+    for iden, c in data.items() :
+        tmr = c['TMR']
+        if tmr is None :
+            continue
+        for i in range(0, len(tmr)) :
+            if tmr[i] == 'EQUIP' :
+                f.write(str(tmr[i+1])+'\n')
+                i += 1
+    f.close()
+
+def load_equipment(infile, tmr_file='/home/chrism/ffbe/data/tmr_equipment.txt',
+                   pckl=None, verbose=False) :
     f = open(infile, 'r')
     data = json.load(f)
     f.close()
 
     ae = ''
+
+    with open(tmr_file, 'r') as f :
+        tmr_lst = f.read().splitlines()
 
     equipment_dict = dict()
 
@@ -24,6 +44,10 @@ def load_equipment(infile, pckl=None, verbose=False) :
         stats.pop('status_resist')
         etype = e['type']
         slot = e['slot']
+        if str(iden) in tmr_lst :
+            trust = True
+        else :
+            trust = False
         equipment = None
         if slot == 'Headgear' :
             equipment = Headgear(name=name, etype=etype, 
@@ -31,6 +55,7 @@ def load_equipment(infile, pckl=None, verbose=False) :
                                  element=Elements(elements=element),
                                  status_inflict=Status(status=status_inflict),
                                  resistance=Resistance(resistance=resistance), 
+                                 trust=trust,
                                  ae=ae)
         elif slot == 'Chest' :
             equipment = Chest(name=name, etype=etype, 
@@ -38,6 +63,7 @@ def load_equipment(infile, pckl=None, verbose=False) :
                               element=Elements(elements=element), 
                               status_inflict=Status(status=status_inflict),
                               resistance=Resistance(resistance=resistance), 
+                              trust=trust,
                               ae=ae)
         elif slot == 'Accessory' :
             equipment = Accessory(name=name, etype=etype,
@@ -45,6 +71,7 @@ def load_equipment(infile, pckl=None, verbose=False) :
                                   element=Elements(elements=element),
                                   status_inflict=Status(status=status_inflict),
                                   resistance=Resistance(resistance=resistance), 
+                                  trust=trust,
                                   ae=ae)
         elif slot == 'Shield' :
             equipment = Shield(name=name, etype=etype,
@@ -52,6 +79,7 @@ def load_equipment(infile, pckl=None, verbose=False) :
                                element=Elements(elements=element),
                                status_inflict=Status(status=status_inflict),
                                resistance=Resistance(resistance=resistance),
+                               trust=trust,
                                ae=ae)
         elif slot == 'Weapon' :
             is_2h = e['is_twohanded']
@@ -60,6 +88,7 @@ def load_equipment(infile, pckl=None, verbose=False) :
                                element=Elements(elements=element),
                                status_inflict=Status(status=status_inflict),
                                resistance=Resistance(resistance=resistance),
+                               trust=trust,
                                ae=ae,
                                is_2h=is_2h)
         elif verbose :
