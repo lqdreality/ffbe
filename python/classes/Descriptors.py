@@ -24,7 +24,7 @@ class DictObj :
 class Stats(DictObj) :
     def __init__(self, stats=dict(), stype='') :
         self.stype = stype
-        attr_list = ['HP', 'MP', 'ATK', 'MAG', 'DEF', 'SPR']
+        attr_list = ['HP', 'MP', 'ATK', 'DEF', 'MAG', 'SPR']
         DictObj.__init__(self, stats, attr_list)
 
     def get_stat(self, stat) :
@@ -38,6 +38,15 @@ class Stats(DictObj) :
               '{0:03d}'.format(self.data['MAG']) + '  |  ' +
               '{0:03d}'.format(self.data['DEF']) + '  |  ' +
               '{0:03d}'.format(self.data['SPR']) + '  |')
+
+    def __gt__(self, s) :
+        result = []
+        for attr in self.attr_list :
+            if self.data[attr] > s.data[attr] :
+                result.append(True)
+            else :
+                result.append(False)
+        return result
 
     def __add__(self, other) :
         stats = self.data.copy()

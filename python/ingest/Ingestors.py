@@ -20,6 +20,39 @@ def write_tmr_equipment_file(infile, outfile) :
                 i += 1
     f.close()
 
+def load_stats(infile, names=None, out_file=None) :
+    f = open(infile, 'r')
+    data = json.load(f)
+    f.close()
+
+    if out_file is not None :
+        out_f = open(out_file, 'w')
+
+    char_stat_dict = {}
+    for iden1, val1 in data.items() :
+        if names is not None :
+            if val1['name'] not in names :
+                continue
+        inname = val1['name']
+        for iden2, val2 in val1['entries'].items() :
+            if val2['rarity'] != 6 :
+                continue
+            atk = val2['stats']['ATK'][1]
+            mag = val2['stats']['MAG'][1]
+            deff = val2['stats']['DEF'][1]
+            spr = val2['stats']['SPR'][1]
+            hp = val2['stats']['HP'][1]
+            mp = val2['stats']['MP'][1]
+            if out_file is not None :
+                out_f.write(inname + ',' + str(hp) + ',' + str(mp) + ',' + \
+                            str(atk) + ',' + str(deff) + ',' + str(mag) + ',' + \
+                            str(spr) + '\n')
+            stats = BasicStats({'HP': hp, 'MP': mp, 'ATK': atk, 'DEF': deff, 'MAG': mag, 'SPR': spr})
+            char_stat_dict.update({inname:stats})
+    if out_file is not None :
+        out_f.close()
+    return char_stat_dict
+
 def load_equipment(infile, tmr_file='/home/chrism/ffbe/data/tmr_equipment.txt',
                    pckl=None, verbose=False) :
     f = open(infile, 'r')
@@ -100,7 +133,11 @@ def load_equipment(infile, tmr_file='/home/chrism/ffbe/data/tmr_equipment.txt',
             equipment_dict.update({iden:equipment})
 
     if pckl is not None :
+        import pickle
         print('Pickling up the list')
+        f_pckl = open(pckl, 'wb')
+        pickle.dump(equipment_dict, f_pckl)
+        f_pckl.close()
 
     return equipment_dict
 
