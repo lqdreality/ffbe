@@ -1,10 +1,10 @@
-import sys
-from ingest.Ingestors import load_equipment
+from ffbe.ingest.Ingestors import *
 
-def main() :
-    #infile = sys.argv[1]
-    infile = '/home/chrism/ffbe/data/equipment.json'
-    load_equipment(infile)
+EQUIPMENT_FILE = '/home/chrism/ffbe/data/ffbe/equipment.json'
+UNIT_FILE = '/home/chrism/ffbe/data/ffbe/units.json'
+PCKL_FILE = '/home/chrism/ffbe/data/equipment.pkl'
+TMR_FILE = '/home/chrism/ffbe/data/tmr_equipment.txt'
 
-if __name__ == '__main__' :
-    main()
+write_tmr_equipment_file(UNIT_FILE, TMR_FILE)
+
+load_equipment(EQUIPMENT_FILE, pckl=PCKL_FILE)
