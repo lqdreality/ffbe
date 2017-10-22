@@ -1,4 +1,4 @@
-from Equipment import *
+from ffbe.classes.Equipment import *
 
 def find_equipment(elist, name=None, etypes=[], stats=[], operators=[], 
                    comp_vals=[], search_all=False, verbose=False) :

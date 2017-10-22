@@ -1,5 +1,5 @@
-from Descriptors import *
-from Equipment import *
+from ffbe.classes.Descriptors import *
+from ffbe.classes.Equipment import *
 
 class Character :
     def __init__(self, name='None', 

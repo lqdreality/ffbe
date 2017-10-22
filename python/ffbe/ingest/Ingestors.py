@@ -1,8 +1,8 @@
 import json
 from time import sleep
-from Descriptors import *
-from Equipment import *
-from Skills import *
+from ffbe.classes.Descriptors import *
+from ffbe.classes.Equipment import *
+from ffbe.classes.Skills import *
 
 def write_tmr_equipment_file(infile, outfile) :
     f = open(infile, 'r')

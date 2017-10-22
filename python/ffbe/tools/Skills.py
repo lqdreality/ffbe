@@ -1,4 +1,4 @@
-from Descriptors import *
+from ffbe.classes.Descriptors import *
 
 class Skills :
     def __init__(self, name=None,

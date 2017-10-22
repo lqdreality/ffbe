@@ -1,4 +1,4 @@
-from Descriptors import *
+from ffbe.classes.Descriptors import *
 
 class Equipment :
     slots = ['Weapon', 'Chest', 'Headgear', 'Accessory', 'Shield']
