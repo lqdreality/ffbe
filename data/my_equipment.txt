@@ -1,0 +1,201 @@
+#
+#Daggers
+#
+Main Gauche,1
+Toxic Dagger,1
+Galkan Dagger,2
+Mage Masher,1
+Bronze Knife,6
+Sleep Dagger,1
+Kitchen Knife,1
+Orichalcum,1
+Ulric's Kukri,1
+#
+#Swords
+#
+Broadsword,2
+Mythril Sword,1
+Flametongue,1
+Icebrand,1
+Coral Sword,1
+Enhancer,1
+Sleep Sword,1
+Ancient Overlord,1
+Falchion,1
+#
+#Great Sword
+#
+Rune Blade,1
+Buster Sword,1
+Defender,1
+Organyx,1
+Iron Will,1
+Blood Sword,1
+Beastlord,1
+#
+#Katana
+#
+Kotetsu,1
+Kazekiri,1
+Dwarf's Katana,1
+#
+#Staff
+#
+Rune Staff,1
+Golden Staff,1
+#
+#Rod
+#
+Ice Rod,2
+Wizard Rod,1
+Rod of Lightning,1
+Water Drake's Rod,1
+Holy Rod,1
+#
+#Bow
+#
+Short Bow,1
+Long Bow,1
+#
+#Axe
+#
+Great Axe,1
+Ogrekiller,2
+Giant's Axe,2
+Mythril Axe,1
+Golden Axe,2
+Gigantaxe,1
+#
+#Hammer
+#
+Iron Hammer,1
+Beast Hammer,1
+Microphone Stand,1
+#
+#Spear
+#
+Javelin,1
+Partisan,1
+Ice Lance,1
+Thunder Spear,1
+Zodiac Spear,1
+Orc Piercer,1
+Moogle Spear,2
+Dragoon Lance,1
+#
+#Harp
+#
+Madhura Harp,1
+#
+#Whip
+#
+Leather Whip,1
+Chain Whip,1
+Empress Birch,1
+#
+#Thrown
+#
+Boomerang,1
+Chakram,1
+Kangaroo,1
+Slick Dart,1
+#
+#Gun
+#
+Capella,1
+Vega,1
+Betelgeuse,1
+Shark Gun,1
+Assault Rifle,1
+Quasar,1
+#
+#Mace
+#
+Iron Mace,1
+Werebuster,1
+Mythril Mace,1
+Thorned Mace,1
+#
+#Fist
+#
+Type-3 Fists,1
+Poison Knuckles,1
+#
+#Light Shield
+#
+Ochre Shield,1
+Mythril Buckler,2
+#
+#Heavy Shield
+#
+Bronze Shield,1
+Iron Shield,1
+Large Shield,1
+Mythril Shield,1
+Golden Shield,2
+Flame Shield,3
+Ice Shield
+#
+#Hats
+#
+Tiger Mask,2
+Mystery Veil,3
+Circlet,1
+Raven Beret,2
+Kingsglaive Hood,1
+Strudy Headband,1
+Chapeau,1
+Green Beret,1
+#
+#Helm
+#
+Barbut,1
+Golden Helm,1
+Grand Helm,1
+Imperial Helm,1
+Protective Helm,1
+Onion Helm, 1
+Emil's Head,1
+Survivor Helm,1
+Cursed Mouthpiece,1
+#
+#Accessory
+#
+Iron Gloves,1
+Power Wrist,1
+Hyper Wrist,3
+Mythril Gloves,2
+Gold Armlet,2
+White Cape,1
+Black Choker,1
+Gold Anklet,1
+Fairy Ring,1
+Jeweled Ring,1
+Fire Ring,1
+Blaze Ring,1
+Frost Ring,1
+Spark Ring,1
+Lightning Ring,1
+Water Ring,1
+Tide Ring,2
+Gale Ring,1
+Squall Ring,1
+Clay Ring,2
+Moon Bracer,2
+Earrings,2
+Charm Bangle,1
+Cat's Bell,1
+Muscle Belt,1
+Quake Ring,1
+Angel Ring,2
+Wall Ring,1
+Water God's Amulet,1
+Rikku's Pouch,1
+Anniversary Ring,1
+Defender's Bracer,1
+Candy Basket,1
+Magical Scrunchie,1
+Regen Ring,1
+Lasswell's Insignia,1
+Rain's Insignia,1
+Fina's Insignia,1
