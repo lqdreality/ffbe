@@ -1,3 +1,4 @@
-data/
+data/ffbe/
 __pycache__/
 *.swp
+*.png
