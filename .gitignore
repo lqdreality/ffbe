@@ -1,4 +1,5 @@
 data/ffbe/
+*.pkl
 __pycache__/
 *.swp
 *.png
