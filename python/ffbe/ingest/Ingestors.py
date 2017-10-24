@@ -55,9 +55,19 @@ def load_stats(infile, names=None, out_file=None) :
 
 def load_equipment(infile, tmr_file='/home/chrism/ffbe/data/tmr_equipment.txt',
                    pckl=None, verbose=False) :
-    f = open(infile, 'r')
-    data = json.load(f)
-    f.close()
+
+    if infile.endswith('.pkl') :
+        import pickle
+        f = open(infile, 'rb')
+        data = pickle.load(f)
+        f.close()
+        return data
+    elif infile.endswith('.json') :
+        f = open(infile, 'r')
+        data = json.load(f)
+        f.close()
+    else :
+        raise
 
     ae = ''
 
