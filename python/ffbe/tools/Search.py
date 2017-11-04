@@ -6,6 +6,7 @@ def find_equipment(elist,
                    stats=[], 
                    operators=[], 
                    comp_vals=[], 
+                   has_element=None,
                    verbose=False, 
                    to_dict=False) :
 
@@ -30,6 +31,10 @@ def find_equipment(elist,
     else :
         search_all = False
 
+    if has_element is not None :
+        if not isinstance(has_element, list) :
+            has_element = [has_element]
+
     for iden, equipment in elist.items() :
         if names is not None :
             if equipment.name.lower() in names :
@@ -37,9 +42,19 @@ def find_equipment(elist,
             else :
                 found = False
         else :
+            found = True
             if not search_all :
                 if equipment.etype not in etypes and equipment.slot not in etypes :
                     continue
+
+            if has_element is not None :
+                for element in has_element :
+                    if equipment.element[element] != 1 :
+                        found = False
+                        break
+                if not found :
+                    continue
+                
             # If stats is not a list, create list
             if not isinstance(stats, list) :
                 stats = [stats]
@@ -48,13 +63,15 @@ def find_equipment(elist,
             # If operators/CVs is not a list, create a list with the same element
             if not isinstance(operators, list) :
                 operators = [operators] * num_stats
+
             if not isinstance(comp_vals, list) :
                 comp_vals = [comp_vals] * num_stats
+
             # if stats is one, but ops and CVs arent
             if num_stats == 1 and len(operators) > 1 and len(comp_vals) > 1 :
                 assert len(operators) == len(comp_vals)
                 stats = [stats[0]] * len(operators)
-            found = True
+
             for stat, op, val in zip(stats, operators, comp_vals) :
                 s_val = equipment.get_stat(stat)
                 found &= op(s_val,val)

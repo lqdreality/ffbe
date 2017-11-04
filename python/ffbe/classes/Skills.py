@@ -9,3 +9,8 @@ class Skills :
         self.active = active
     def print(self) :
         print('Skill: ' + self.name)
+
+class PassiveSkills(Skills) :
+    def __init__(self) :
+        Skills.__init__(self, active=False)
+        self.bonuses = Stats()

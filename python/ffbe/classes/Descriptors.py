@@ -6,12 +6,17 @@ class DictObj :
         self.attr_list = attr_list
         for attr in self.attr_list :
             if attr not in data :
-                self.data.update({attr:0})
+                self.data.update({attr:int(0)})
         for k in data.keys() :
             if k not in self.attr_list :
                 self.data.pop(k)
 
     def get_data(self, key) :
+        if key not in self.attr_list :
+            raise ValueError('Cannot get ' + key + '. Not in Attribute list')
+        return self.data[key]
+    
+    def __getitem__(self, key) :
         if key not in self.attr_list :
             raise ValueError('Cannot get ' + key + '. Not in Attribute list')
         return self.data[key]
@@ -32,12 +37,12 @@ class Stats(DictObj) :
 
     def print(self) :
         print('|   HP   |   MP  |  ATK  |  MAG  |  DEF  |  SPR  |')
-        print('|  ' + '{0:04d}'.format(self.data['HP']) + '  |  ' + 
-              '{0:03d}'.format(self.data['MP']) + '  |  ' + 
-              '{0:03d}'.format(self.data['ATK']) + '  |  ' +
-              '{0:03d}'.format(self.data['MAG']) + '  |  ' +
-              '{0:03d}'.format(self.data['DEF']) + '  |  ' +
-              '{0:03d}'.format(self.data['SPR']) + '  |')
+        print('|  ' + '{:04.0f}'.format(self.data['HP']) + '  |  ' + 
+              '{:03.0f}'.format(self.data['MP']) + '  |  ' + 
+              '{:03.0f}'.format(self.data['ATK']) + '  |  ' +
+              '{:03.0f}'.format(self.data['MAG']) + '  |  ' +
+              '{:03.0f}'.format(self.data['DEF']) + '  |  ' +
+              '{:03.0f}'.format(self.data['SPR']) + '  |')
 
     def __gt__(self, s) :
         result = []
@@ -49,10 +54,25 @@ class Stats(DictObj) :
         return result
 
     def __add__(self, other) :
-        stats = self.data.copy()
+        #stats = self.data.copy()
+        stats = Stats()
         for attr in self.attr_list :
-            stats[attr] += other.data[attr]
-        return Stats(stats=stats)
+            stats.data[attr] = self[attr] + other[attr]
+        return stats
+    
+    def __mul__(self, other) :
+        #stats = self.data.copy()
+        stats = Stats()
+        for attr in self.attr_list :
+            stats.data[attr] = int(self[attr]*other[attr])
+        return stats
+    
+    def __rmul__(self, other) :
+        #stats = self.data.copy()
+        stats = Stats()
+        for attr in self.attr_list :
+            stats.data[attr] = int(self[attr]*other[attr])
+        return stats
 
 class BasicStats(Stats) :
     def __init__(self, stats=None) :

@@ -32,12 +32,14 @@ Organyx,1
 Iron Will,1
 Blood Sword,1
 Beastlord,1
+Crimson Saber,1
 #
 #Katana
 #
 Kotetsu,1
 Kazekiri,1
 Dwarf's Katana,1
+Purple Lightning,1
 #
 #Staff
 #
@@ -56,6 +58,7 @@ Holy Rod,1
 #
 Short Bow,1
 Long Bow,1
+Reincarnation,1
 #
 #Axe
 #

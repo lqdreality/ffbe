@@ -1,5 +1,6 @@
 import json
 from time import sleep
+import re
 from ffbe.classes.Descriptors import *
 from ffbe.classes.Equipment import *
 from ffbe.classes.Skills import *
@@ -19,11 +20,40 @@ def write_tmr_equipment_file(infile, outfile) :
                 f.write(str(tmr[i+1])+'\n')
                 i += 1
     f.close()
+    
+def load_passives(infile) :
+    f = open(infile, 'r')
+    passives = json.load(f)
+    f.close()
+    
+    output = {}
+    idx = {'ATK': 0, 'DEF': 1, 'MAG': 2, 'SPR': 3, 'HP': 4, 'MP': 5}
+    #regex = '((HP|MP|ATK|DEF|(^MAG|, MAG)|SPR)+.*%|^Analysis$)'
+    for iden, val in passives.items() :
+        #match = re.search(regex, val['name'])
+        for er in val['effects_raw'] :
+            if er[1] == 3 and er[2] == 1 :
+                stats = BasicStats()
+                effects = er[3]
+                stats.data['ATK'] += effects[idx['ATK']]/100
+                stats.data['DEF'] += effects[idx['DEF']]/100
+                stats.data['MAG'] += effects[idx['MAG']]/100
+                stats.data['SPR'] += effects[idx['SPR']]/100
+                stats.data['HP'] += effects[idx['HP']]/100
+                stats.data['MP'] += effects[idx['MP']]/100
+                output.update({iden:stats})
+    return output
 
-def load_stats(infile, names=None, out_file=None) :
+def load_stats(infile, names=None, out_file=None, passives=None) :
     f = open(infile, 'r')
     data = json.load(f)
     f.close()
+    
+    if names is not None and not isinstance(names,list) :
+        names = [names]
+    
+    if passives is not None :
+        ps = load_passives(passives)
 
     if out_file is not None :
         out_f = open(out_file, 'w')
@@ -48,6 +78,13 @@ def load_stats(infile, names=None, out_file=None) :
                             str(atk) + ',' + str(deff) + ',' + str(mag) + ',' + \
                             str(spr) + '\n')
             stats = BasicStats({'HP': hp, 'MP': mp, 'ATK': atk, 'DEF': deff, 'MAG': mag, 'SPR': spr})
+            if passives is not None :
+                incr = BasicStats()
+                for s in val1['skills'] :
+                    key = str(s['id'])
+                    if key in ps :
+                        incr = incr + stats*ps[key] # not sure if %'s are stacked or they apply to base stats
+                stats = stats + incr
             char_stat_dict.update({inname:stats})
     if out_file is not None :
         out_f.close()
