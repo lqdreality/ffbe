@@ -17,7 +17,7 @@ def write_tmr_equipment_file(infile, outfile) :
             continue
         for i in range(0, len(tmr)) :
             if tmr[i] == 'EQUIP' :
-                f.write(str(tmr[i+1])+'\n')
+                f.write(str(tmr[i+1]) + ',' + c['name'] + '\n')
                 i += 1
     f.close()
     
@@ -108,8 +108,12 @@ def load_equipment(infile, tmr_file='/home/chrism/ffbe/data/tmr_equipment.txt',
 
     ae = ''
 
+    tmr_items = {}
     with open(tmr_file, 'r') as f :
         tmr_lst = f.read().splitlines()
+        for tmr in tmr_lst :
+            info = tmr.split(',')
+            tmr_items.update({info[0]:info[1]})
 
     equipment_dict = dict()
 
@@ -124,10 +128,10 @@ def load_equipment(infile, tmr_file='/home/chrism/ffbe/data/tmr_equipment.txt',
         stats.pop('status_resist')
         etype = e['type']
         slot = e['slot']
-        if str(iden) in tmr_lst :
-            trust = True
+        if str(iden) in tmr_items :
+            trust = tmr_items[iden]
         else :
-            trust = False
+            trust = None
         equipment = None
         if slot == 'Headgear' :
             equipment = Headgear(name=name, etype=etype, 

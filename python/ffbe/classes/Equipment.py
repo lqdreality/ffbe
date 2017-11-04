@@ -9,7 +9,7 @@ class Equipment :
                  element=Elements(),
                  status_inflict=Status(),
                  resistance=Resistance(),
-                 trust=False,
+                 trust=None,
                  ae='None') :
         self.name = name
         self.slot = slot # [Weapon, Accessory, Headgear, Chest, Shield]
@@ -29,7 +29,7 @@ class Equipment :
         print('Name: ' + self.name)
         print('Type: ' + self.etype)
         if self.trust :
-            print('Trust: Yes')
+            print('Trust: Yes (' + self.trust + ')')
         else :
             print('Trust: No')
         self.element.print()
@@ -55,7 +55,7 @@ class Chest(Equipment) :
                  element=Elements(),
                  status_inflict=Status(),
                  resistance=Resistance(), 
-                 trust=False,
+                 trust=None,
                  ae='None') :
         Equipment.__init__(self, name=name, 
                            slot='Chest', 
@@ -74,7 +74,7 @@ class Headgear(Equipment) :
                  element=Elements(),
                  status_inflict=Status(),
                  resistance=Resistance(), 
-                 trust=False,
+                 trust=None,
                  ae='None') :
         Equipment.__init__(self, name=name, 
                            slot='Headgear', 
@@ -93,7 +93,7 @@ class Weapon(Equipment) :
                  element=Elements(), 
                  status_inflict=Status(),
                  resistance=Resistance(), 
-                 trust=False,
+                 trust=None,
                  ae='None', 
                  is_2h=False) :
         Equipment.__init__(self, name=name, 
@@ -118,7 +118,7 @@ class Accessory(Equipment) :
                  element=Elements(),
                  status_inflict=Status(),
                  resistance=Resistance(), 
-                 trust=False,
+                 trust=None,
                  ae='None') :
         Equipment.__init__(self, name=name, 
                            slot='Accessory', 
@@ -137,7 +137,7 @@ class Shield(Equipment) :
                  element=Elements(),
                  status_inflict=Status(),
                  resistance=Resistance(),
-                 trust=False,
+                 trust=None,
                  ae='None') :
         Equipment.__init__(self, name=name,
                            slot='Shield',
